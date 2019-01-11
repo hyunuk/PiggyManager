@@ -187,3 +187,4 @@ public class MainFrame extends JFrame implements Observer {
 		System.out.println("Observer got a notification.");
 	}
 }
+
