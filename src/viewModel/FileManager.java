@@ -1,4 +1,4 @@
-package function;
+package viewModel;
 
 import model.Record;
 
@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileManager implements Loadable, Savable {
-	@Override
+public class FileManager {
 	public void loadFunc(List<Record> recordArrayList) {
 		if (recordArrayList == null) {
 			recordArrayList = new ArrayList<>();
@@ -41,7 +40,6 @@ public class FileManager implements Loadable, Savable {
 
 	}
 
-	@Override
 	public void saveFunc(List<Record> recordArrayList) {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Select a file or make a new text file to save");

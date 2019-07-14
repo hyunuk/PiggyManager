@@ -1,4 +1,4 @@
-package ui;
+package helper;
 
 public interface Observer {
 	void update();

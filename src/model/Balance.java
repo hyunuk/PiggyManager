@@ -1,10 +1,9 @@
 package model;
 
-import function.Helper;
+import helper.CurrencyFormatter;
 
 public class Balance {
 	private ListOfRecords records;
-	private Helper helper = Helper.getInstance();
 
 	public Balance(ListOfRecords records) {
 		this.records = records;
@@ -15,9 +14,8 @@ public class Balance {
 		for (Record r : records.getRecords()) {
 			if (r.getAmountInt() > 0) income += r.getAmountInt();
 		}
-		String returnIncome = helper.getCanDollarFormat((double) income / 100);
 
-		return returnIncome;
+		return CurrencyFormatter.getCanDollarFormat((double) income / 100);
 	}
 
 	public String getExpense() {
@@ -25,9 +23,8 @@ public class Balance {
 		for (Record r : records.getRecords()) {
 			if (r.getAmountInt() < 0) expense += r.getAmountInt();
 		}
-		String returnExpense = helper.getCanDollarFormat((double) expense / 100);
 
-		return returnExpense;
+		return CurrencyFormatter.getCanDollarFormat((double) expense / 100);
 	}
 
 	public String getBalance() {
@@ -35,8 +32,7 @@ public class Balance {
 		for (Record r : records.getRecords()) {
 			balance += r.getAmountInt();
 		}
-		String returnBalance = helper.getCanDollarFormat((double) balance / 100);
 
-		return returnBalance;
+		return CurrencyFormatter.getCanDollarFormat((double) balance / 100);
 	}
 }

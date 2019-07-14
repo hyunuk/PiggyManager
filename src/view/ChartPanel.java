@@ -1,4 +1,4 @@
-package ui;
+package view;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

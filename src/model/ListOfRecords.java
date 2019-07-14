@@ -18,6 +18,10 @@ public class ListOfRecords {
 		records.add(record);
 	}
 
+	public void clearRecords() {
+		records.clear();
+	}
+
 	public void removeRecord(Record record) {
 		records.remove(record);
 	}
