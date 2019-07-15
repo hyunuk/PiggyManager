@@ -54,7 +54,6 @@ public class MainFrame extends JFrame implements Observer {
 		ComponentAttacher.attach(this, tablePanel(), RECORD_PANEL_RECT);
 		ComponentAttacher.attach(this, balancePanel(), BALANCE_PANEL_RECT);
 		initEditDialog();
-		initChartDialog();
 
 		pack();
 		setVisible(true);
@@ -77,7 +76,7 @@ public class MainFrame extends JFrame implements Observer {
 		editBtn.addActionListener(e -> initEditDialog());
 		saveBtn.addActionListener(e -> appManager.saveRecords());
 		loadBtn.addActionListener(e -> appManager.loadRecords());
-		chartBtn.addActionListener(e -> appManager.mainFrameClickEvent());
+		chartBtn.addActionListener(e -> initChartDialog());
 		return returnPanel;
 	}
 
@@ -109,7 +108,7 @@ public class MainFrame extends JFrame implements Observer {
 		expenseMoney = new JLabel("$0.00");
 		balanceMoney = new JLabel("$0.00");
 
-		ComponentAttacher.attach(returnPanel, incomeExpensePrintPanel, 20, 20, (int) (PANEL_WIDTH / 2) - 20, (int) (BALANCE_PANEL_RECT.height * 0.60));
+		ComponentAttacher.attach(returnPanel, incomeExpensePrintPanel, 20, 20, (PANEL_WIDTH / 2) - 20, (int) (BALANCE_PANEL_RECT.height * 0.60));
 		ComponentAttacher.attach(returnPanel, balancePrintPanel, (PANEL_WIDTH / 2) + 15, 20, (PANEL_WIDTH / 2) - 20, (int) (BALANCE_PANEL_RECT.height * 0.60));
 		incomeExpensePrintPanel.add(incomeLabel);
 		incomeExpensePrintPanel.add(incomeMoney);
@@ -138,7 +137,8 @@ public class MainFrame extends JFrame implements Observer {
 	private void initChartDialog() {
 		ChartDialog chartDialog = new ChartDialog(appManager);
 		chartDialog.setBounds(CHART_DIALOG_RECT);
-		chartDialog.setVisible(false);
+		chartDialog.setVisible(true);
+		chartDialog.showDialog();
 	}
 
 	@Override

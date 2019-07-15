@@ -4,6 +4,7 @@ import helper.CurrencyFormatter;
 import helper.Observable;
 import helper.Observer;
 import model.Balance;
+import model.ChartData;
 import model.ListOfRecords;
 import model.Record;
 import model.exceptions.NullAmountException;
@@ -18,6 +19,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class AppManager implements Observable {
+	private final String[] EXPENDITURE_CATEGORY = {"Food", "Transport", "For fun", "Gift", "Clothes", "Other Expen."};
+
 	private ListOfRecords records;
 	private Balance balance;
 	private List<Observer> observers;
@@ -29,15 +32,6 @@ public class AppManager implements Observable {
 		this.observers = new ArrayList<>();
 	}
 
-	public void mainFrameClickEvent() {
-		//SwingUtilities.invokeLater(new Runnable() {
-		//					@Override
-		//					public void run() {
-		//						setupChartDialog();
-		//					}
-		//				});
-	}
-
 	public void addRecord(String amount, String category, String description, boolean isDeposit) throws NumberFormatException, NullAmountException, NullPointerException {
 		double amountDouble = Double.parseDouble(amount) * 100;
 		String amountStr = canFormat.format(amountDouble);
@@ -45,10 +39,9 @@ public class AppManager implements Observable {
 			throw new NullAmountException("Please input amount.");
 		}
 
-		records.addRecord(new Record(amount, description, category, isDeposit));
+		records.addRecord(new Record(amountStr, description, category, isDeposit));
 		notifyObserver();
 	}
-
 
 	public void editRecord(int editIndex, String amount, String category, String description, boolean isDeposit) throws NumberFormatException, NullAmountException, NullPointerException {
 		if (amount == null) {
@@ -61,13 +54,6 @@ public class AppManager implements Observable {
 		records.getRecords().set(editIndex, editedRecord);
 
 		notifyObserver();
-	}
-
-	private void setupChartDialog() {
-//		chartDialog.setSize(500, 500);
-//		chartDialog.setLocation(this.getX() + 50, this.getY() + 50);
-//		chartDialog.setVisible(true);
-//		chartDialog.showDialog();
 	}
 
 	public void updateRecordTable(DefaultTableModel recordTableModel) {
@@ -146,6 +132,19 @@ public class AppManager implements Observable {
 
 	}
 
+	public ArrayList<ChartData> getChartData() {
+		ArrayList<ChartData> chartData = new ArrayList<>();
+		for (String s : EXPENDITURE_CATEGORY) {
+			double expense = 0;
+			for (Record record : records.getRecords()) {
+				if (record.getCategory().equals(s)) {
+					expense += record.getAmountInt();
+				}
+			}
+			chartData.add(new ChartData(s, expense));
+		}
+		return chartData;
+	}
 
 	@Override
 	public void addObserver(Observer o) {

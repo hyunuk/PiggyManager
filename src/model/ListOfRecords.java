@@ -21,8 +21,4 @@ public class ListOfRecords {
 	public void clearRecords() {
 		records.clear();
 	}
-
-	public void removeRecord(Record record) {
-		records.remove(record);
-	}
 }

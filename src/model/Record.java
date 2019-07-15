@@ -12,9 +12,6 @@ public class Record {
 	private String amountModStr;
 	private Calendar cal = Calendar.getInstance();
 
-	//REQUIRES: amount should be input as string and casted to integer. Needs to be checked when input.
-	//MODIFIES: this
-	//EFFECTS: Constructs the record.
 	public Record(String amountStr, String description, String category, boolean isDeposit) {
 		this.amountModStr = amountModify(amountStr); // 15000
 		this.amountInt = Integer.parseInt(amountModStr) / 100; // 150
@@ -27,11 +24,10 @@ public class Record {
 		this.amountInt = (isDeposit) ? amountInt : amountInt * -1;
 	}
 
-	public String amountModify(String amountStr) {
+	private String amountModify(String amountStr) {
 		String modStr1 = amountStr.replace(".", "").replace(",", "");
-		String modStr2 = modStr1.contains("$") ? modStr1.substring(1) : modStr1;
 
-		return modStr2;
+		return modStr1.contains("$") ? modStr1.substring(1) : modStr1;
 	}
 
 	public void setDate(String date) {
@@ -42,7 +38,7 @@ public class Record {
 		return date;
 	}
 
-	public String getAmountModStr() {
+	private String getAmountModStr() {
 		return amountModStr;
 	}
 
@@ -66,17 +62,15 @@ public class Record {
 		return isDeposit;
 	}
 
-	//EFFECTS: Calculate the day that the record was instantiated.
 	private String today() {
 		int year = cal.get(Calendar.YEAR) % 100;
 		String month = String.format("%02d", cal.get(Calendar.MONTH) + 1);
 		String date = String.format("%02d", cal.get(Calendar.DATE));
-		String today = year + "/" + month + "/" + date;
-		return today;
+		return year + "/" + month + "/" + date;
 	}
 
 	public String saveString() {
-		String saveString = "";
+		String saveString;
 		String date = this.getDate();
 		String amount = this.getAmountModStr();
 		String category = this.getCategory();
